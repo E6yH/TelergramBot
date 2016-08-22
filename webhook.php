@@ -1,9 +1,10 @@
 <?php
-  $chat_id = $_GET['chat_id'];
-  $first_name = $_GET['first_name'];
-  $message = $_GET['message'];
-  file_put_contents('log.txt', 'input:'. date('d.m.Y G:i', time()) . PHP_EOL . "$chat_id $first_name $message". PHP_EOL, FILE_APPEND);  
-  
+	$input = json_decode(file_get_contents('php://input'), true);     
+	
+	$chat_id = $input['message']['chat']['id'];
+	$first_name = $input['message']['chat']['first_name'];
+	$message = $input['message']['text'];
+	
   $access_token = '248518376:AAGDYgvpnspXHoyuU8L2KWkRFwo5gjokjpM';
   $api = 'https://api.telegram.org/bot' . $access_token;
   if (!preg_match("/тоха/i", mb_convert_case ($message, MB_CASE_LOWER, "UTF-8"))) {
